@@ -21,5 +21,7 @@ Route::get('/', function () {
 Route::get('/post/{post}', 'PostsController@show');
 
 Route::get('/about', function () {
-    return view('about');
+    return view('about', [
+        'articles' => App\Article::take(3)->latest()->get()
+    ]);
 });
