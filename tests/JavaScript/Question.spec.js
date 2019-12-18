@@ -6,6 +6,18 @@ describe ('Question', () => {
    let wrapper;
 
     beforeEach(()=> {
-        wrapper = mount(Question);
+        wrapper = mount(Question, {
+            propsData: {
+                question: {
+                    title:'The title',
+                    body: 'The body'
+                }
+            }
+        });
+    });
+
+    it('presents the title and the body', ()=> {
+        expect(wrapper.html()).toContain('The title');
+        expect(wrapper.html()).toContain('The body');
     });
 });
