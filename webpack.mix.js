@@ -15,5 +15,12 @@ const nodeExternals = require('webpack-node-externals');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
     // .webpackConfig({
-    //    externals: [nodeExternals()],      
+    //   module: {
+    //     rules: [
+    //         {
+    //             test: /\.vue$/,
+    //             use: 'vue-loader'
+    //         }
+    //     ]
+    // }      
     // });
