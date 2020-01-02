@@ -15,7 +15,5 @@
     <div id="root">
         <question :data-question="{ title: 'The title', body: 'The body'}"></question>
     </div>
-   
-    <script src="bundle.js"></script>
 </body>
 </html>

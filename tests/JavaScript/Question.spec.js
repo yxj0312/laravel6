@@ -24,30 +24,34 @@ describe ('Question', () => {
         see('The body');
     });
 
-    // it ('can trigger edit mode', () => {
-    // // console.log(wrapper.html());
-    // console.log('go')
-    //     // console.log(wrapper.find('#edit').is('button'));
-    //     console.log(wrapper.vm.editing);
-    //     expect(wrapper.find('#edit').is('button')).toBe(true);
-    //     wrapper.find('#edit').trigger('click');
-    //     console.log(wrapper.vm.editing);
-    //     console.log(wrapper.html());
-    //     // expect(wrapper.find('#edit').is('button')).toBe(false);
-    //     // wrapper.find('#edit').trigger('click');
-    //     // click('#edit');
-    //     // see('123');
-    //     // expect(wrapper.contains('input[name=title]')).toBe(false);
+    it ('can trigger edit mode', () => {
+        console.log('Editing Value: ')
+        console.log(wrapper.vm.editing);
+        expect(wrapper.find('#edit').is('button')).toBe(true);
+        click('#edit');
+        console.log('Edit Button clicked')
+        console.log('Editing Value: ')
+        console.log(wrapper.vm.editing);
+        console.log('HTML: ')
+        console.log(wrapper.html());
+        expect(wrapper.find('input[name=title]').element.value).toBe('The title');
+        
+        // wrapper.find('#edit').trigger('click');
+        // expect(wrapper.find('#edit').is('button')).toBe(false);
+        // wrapper.find('#edit').trigger('click');
+        // click('#edit');
+        // see('123');
+        // expect(wrapper.contains('input[name=title]')).toBe(false);
 
 
 
-    //     // expect(wrapper.contains('input[name=title]')).toBe(true);
+        // expect(wrapper.contains('input[name=title]')).toBe(true);
 
         
-    //     // console.log(wrapper.find('input[name=title]').element);
-    //     expect(wrapper.find('input[name=title]').element.value).toBe('The title');
-    //     // expect(wrapper.find('textarea[name=body]').element.value).toBe('The body');
-    // });
+        // console.log(wrapper.find('input[name=title]').element);
+        // expect(wrapper.find('input[name=title]').element.value).toBe('The title');
+        // expect(wrapper.find('textarea[name=body]').element.value).toBe('The body');
+    });
 
     // it ('hides the edit button during edit mode', () => {
     //     expect(wrapper.contains('#edit')).toBe(true);

@@ -9,7 +9,7 @@
         </div>
 
         <!-- Editing the question. -->
-        <div v-if="editing">
+        <div v-if="editing === true">
             <h1 v-text="123"></h1>
             <input type="text" name="title" v-model="form.title">
             <textarea name="body" v-model="form.body"></textarea>
