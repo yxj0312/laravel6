@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils';
 import expect from 'expect';
 import Question from '../../resources/js/components/Question.vue';
-import sinon from 'sinon';
 import Vue from 'vue';
 
 describe ('Question', () => {
@@ -16,7 +15,6 @@ describe ('Question', () => {
                 },
             }
         });
-        wrapper.vm.$forceUpdate();
     });
 
 
@@ -60,9 +58,14 @@ describe ('Question', () => {
             type('Changed title', 'input[name=title]');
             type('Changed body', 'textarea[name=body]');
             click('#update');
-            see('Changed title');
-            see('Changed body');
+
+            // see('Changed title');
+            // see('Changed body');
+            expect(wrapper.find('input[name=title]').element.value).toBe('Changed title');
+            expect(wrapper.find('textarea[name=body]').element.value).toBe('Changed body');
         })
+
+
     });
 
     it ('can cancel out of edit mode', () => {
@@ -73,7 +76,8 @@ describe ('Question', () => {
 
             click('#cancel');
 
-            see('The title');
+            // see('The title');
+            expect(wrapper.find('input[name=title]').element.value).toBe('Changed title');
         });
     });
 
