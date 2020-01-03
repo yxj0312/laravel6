@@ -43,35 +43,39 @@ describe ('Question', () => {
         })
     });
 
-    // it ('hides the edit button during edit mode', () => {
-    //     expect(wrapper.contains('#edit')).toBe(true);
+    it ('hides the edit button during edit mode', () => {
+        expect(wrapper.contains('#edit')).toBe(true);
 
-    //     click('#edit');
+        click('#edit');
 
-    //     expect(wrapper.contains('#edit')).toBe(false);
-    // });
+        Vue.nextTick(() => {
+            expect(wrapper.contains('#edit')).toBe(false);
+        });
+    });
 
-    // it ('updates the question after being edited', () => {
-    //     click('#edit');
+    it ('updates the question after being edited', () => {
+        click('#edit');
 
-    //     type('Changed title', 'input[name=title]');
-    //     type('Changed body', 'textarea[name=body]');
-        
-    //     click('#update');
-        
-    //     see('Changed title');
-    //     see('Changed body');
-    // });
+        Vue.nextTick(() => {
+            type('Changed title', 'input[name=title]');
+            type('Changed body', 'textarea[name=body]');
+            click('#update');
+            see('Changed title');
+            see('Changed body');
+        })
+    });
 
-    // it ('can cancel out of edit mode', () => {
-    //     click('#edit');
+    it ('can cancel out of edit mode', () => {
+        click('#edit');
 
-    //     type('Changed title', 'input[name=title]');
+        Vue.nextTick(() => {
+            type('Changed title', 'input[name=title]');
 
-    //     click('#cancel');
+            click('#cancel');
 
-    //     see('The title');
-    // });
+            see('The title');
+        });
+    });
 
     // Helper Functions
 
