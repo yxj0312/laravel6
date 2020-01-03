@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import expect from 'expect';
 import Question from '../../resources/js/components/Question.vue';
 import sinon from 'sinon';
+import Vue from 'vue';
 
 describe ('Question', () => {
     let wrapper;
@@ -25,32 +26,21 @@ describe ('Question', () => {
     });
 
     it ('can trigger edit mode', () => {
-        console.log('Editing Value: ')
-        console.log(wrapper.vm.editing);
+        // console.log('Editing Value: ')
+        // console.log(wrapper.vm.editing);
+        expect(wrapper.contains('#edit')).toBe(true);
         expect(wrapper.find('#edit').is('button')).toBe(true);
         click('#edit');
-        console.log('Edit Button clicked')
-        console.log('Editing Value: ')
-        console.log(wrapper.vm.editing);
-        console.log('HTML: ')
-        console.log(wrapper.html());
-        expect(wrapper.find('input[name=title]').element.value).toBe('The title');
-        
-        // wrapper.find('#edit').trigger('click');
-        // expect(wrapper.find('#edit').is('button')).toBe(false);
-        // wrapper.find('#edit').trigger('click');
-        // click('#edit');
-        // see('123');
-        // expect(wrapper.contains('input[name=title]')).toBe(false);
-
-
-
-        // expect(wrapper.contains('input[name=title]')).toBe(true);
-
-        
-        // console.log(wrapper.find('input[name=title]').element);
-        // expect(wrapper.find('input[name=title]').element.value).toBe('The title');
-        // expect(wrapper.find('textarea[name=body]').element.value).toBe('The body');
+        // console.log('Edit Button clicked')
+        // console.log('Editing Value: ')
+        // console.log(wrapper.vm.editing);
+        // console.log('HTML: ')
+        // console.log(wrapper.html());
+        Vue.nextTick(() => {
+            expect(wrapper.find('input[name=title]').element.value).toBe('The title');
+            expect(wrapper.find('textarea[name=body]').element.value).toBe('The body');
+            // console.log(wrapper.html());
+        })
     });
 
     // it ('hides the edit button during edit mode', () => {
