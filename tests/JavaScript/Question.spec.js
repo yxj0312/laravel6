@@ -2,11 +2,14 @@ import { mount } from '@vue/test-utils';
 import expect from 'expect';
 import Question from '../../resources/js/components/Question.vue';
 import Vue from 'vue';
+import moxios from 'moxios';
 
 describe ('Question', () => {
     let wrapper;
 
     beforeEach (() => {
+        moxios.install();
+
         wrapper = mount(Question, {
             propsData: {
                 dataQuestion: {
@@ -15,6 +18,10 @@ describe ('Question', () => {
                 },
             }
         });
+    });
+
+    afterEach (() => {
+        moxios.uninstall();
     });
 
 
@@ -51,21 +58,37 @@ describe ('Question', () => {
         });
     });
 
-    it ('updates the question after being edited', () => {
+    it.only ('updates the question after being edited', (done) => {
         click('#edit');
 
         Vue.nextTick(() => {
             type('Changed title', 'input[name=title]');
             type('Changed body', 'textarea[name=body]');
+
+            // regex: any digit match
+            // moxios.stubRequest('/questions/1', {
+            moxios.stubRequest('/questions\/\d+/', {
+                status: 200,
+                response: {
+                    title: 'Changed title',
+                    body: 'Changed body'
+                }
+            });
+
             click('#update');
 
             // see('Changed title');
             // see('Changed body');
             expect(wrapper.find('input[name=title]').element.value).toBe('Changed title');
             expect(wrapper.find('textarea[name=body]').element.value).toBe('Changed body');
+
+            // async call, add done() there
+            moxios.wait(()=> {
+                see('Your question has been updated.');
+
+                done();
+            })
         })
-
-
     });
 
     it ('can cancel out of edit mode', () => {
