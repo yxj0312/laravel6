@@ -84,7 +84,8 @@ describe ('Question', () => {
 
             // async call, add done() there
             moxios.wait(()=> {
-                see('Your question has been updated.');
+                // see('Your question has been updated.');
+                // expect(wrapper.html()).toContain('Your question has been updated.');
 
                 done();
             })
