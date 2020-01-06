@@ -1838,6 +1838,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1860,6 +1862,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['dataQuestion'],
   data: function data() {
@@ -1869,7 +1874,8 @@ __webpack_require__.r(__webpack_exports__);
         title: this.dataQuestion.title,
         body: this.dataQuestion.body
       },
-      editing: false
+      editing: false,
+      feedback: false
     };
   },
   methods: {
@@ -1877,8 +1883,14 @@ __webpack_require__.r(__webpack_exports__);
       this.editing = false;
     },
     update: function update() {
+      var _this = this;
+
       this.question.title = this.form.title;
       this.question.body = this.form.body;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/questions/1', this.form).then(function (_ref) {
+        var data = _ref.data;
+        _this.feedback = true;
+      });
       this.editing = false;
     }
   }
@@ -19586,6 +19598,10 @@ var render = function() {
             _vm._v("Update")
           ])
         ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.feedback
+      ? _c("p", [_vm._v("Your question has been updated.")])
       : _vm._e()
   ])
 }

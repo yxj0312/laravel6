@@ -58,7 +58,7 @@ describe ('Question', () => {
         });
     });
 
-    it.only ('updates the question after being edited', (done) => {
+    it ('updates the question after being edited', (done) => {
         click('#edit');
 
         Vue.nextTick(() => {

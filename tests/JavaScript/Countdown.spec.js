@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { shallowMount } from "@vue/test-utils";
 import expect from 'expect';
 import Countdown from '../../resources/js/components/Countdown.vue';
 import moment from 'moment';
@@ -9,14 +10,21 @@ describe ('Countdown', () => {
     let wrapper;
 
     beforeEach (()=> {
-        wrapper = mount(Countdown);
+        // wrapper = mount(Countdown)
+        // wrapper = mount(Countdown, {
+        //     propsData: {
+        //         until: moment().add(10, 'seconds')
+        //     }
+        // });
     });
 
     it ('renders a countdown timer', () => {
-        wrapper.setProps({ until: moment().add(10, 'seconds') })
+        wrapper = shallowMount(Countdown);
+        // wrapper.setProps({ until: moment().add(10, 'seconds') })
         //  <countdown until="December 5 2017"
-
-        see('10 secondes');
+        // console.log('!23');
+            see('10 secondes');
+        
     });
     // Helper Functions
 
