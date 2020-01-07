@@ -20,7 +20,8 @@
 
         computed: {
             remaining () {
-                let remaining = moment.duration(Date.parse(this.until) - new Date());
+                let remaining = moment.duration(Date.parse(this.until) - this.now);
+                console.log(remaining);
 
                 return {
                     days: remaining.days(),
@@ -31,10 +32,8 @@
             }
         },
 
-        data() {
-            return {
-                
-            }
+        data () {
+            return { now: new Date() };
         },
 
         computed: {
