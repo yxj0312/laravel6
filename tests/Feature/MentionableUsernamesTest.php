@@ -41,7 +41,7 @@ class MentionableUsernamesTest extends TestCase
         
         $conversation->addReply($reply);
 
-        $this->assertContains('@exampleuser', $conversation->mentionableUsernames());
+        $this->assertContains('exampleuser', $conversation->mentionableUsernames());
     }
 
     /** @test */
@@ -56,6 +56,5 @@ class MentionableUsernamesTest extends TestCase
 
         $this->assertCount(2, $conversation->mentionableUsernames());
         $this->assertEquals([$conversation->user->username, $reply->user->username], $conversation->mentionableUsernames());
-
     }
 }
