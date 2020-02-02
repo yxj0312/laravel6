@@ -36,11 +36,11 @@ class Conversation extends Model
         // |\s means otherwise any other kind of space characters will be allowed.
         // ?: not trying to capture of this 
         $replyMentionedUsernames = $this->replies->flatmap(function ($reply){
-            preg_match_all('/@[^\s]+(?=(?:\.$)|\s|$)/', $reply->body, $matches);
+            preg_match_all('/@([^\s]+(?=(?:\.$)|\s|$))/', $reply->body, $matches);
 
-            return $matches[0];
+            return $matches[1];
         })->all();
 
-        return array_merge([ $conversationOwner], $replyUsernames, $replyMentionedUsernames);
+        return collect(array_merge([$conversationOwner], $replyUsernames, $replyMentionedUsernames))->unique()->all();
     }
 }

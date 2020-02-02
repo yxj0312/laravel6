@@ -43,4 +43,19 @@ class MentionableUsernamesTest extends TestCase
 
         $this->assertContains('@exampleuser', $conversation->mentionableUsernames());
     }
+
+    /** @test */
+    function it_strips_any_duplicates()
+    {
+        $conversation = factory(Conversation::class)->create();
+
+        $reply = factory(Reply::class)->make(['body' => 'Check with @' . $conversation->user->username]);
+        
+        $conversation->addReply($reply);
+
+
+        $this->assertCount(2, $conversation->mentionableUsernames());
+        $this->assertEquals([$conversation->user->username, $reply->user->username], $conversation->mentionableUsernames());
+
+    }
 }
