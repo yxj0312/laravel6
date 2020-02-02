@@ -20,4 +20,11 @@ class Conversation extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function mentionableUsernames()
+    {
+        return [
+            $this->user->username
+        ];
+    }
 }
