@@ -23,8 +23,12 @@ class Conversation extends Model
 
     public function mentionableUsernames()
     {
-        return [
-            $this->user->username
-        ];
+        $replyUsernames = $this->replies->map(function ($reply) {
+            return $reply->user->username;
+        })->all();
+
+        return array_merge([
+            $this->user->username,            
+        ], $replyUsernames);
     }
 }

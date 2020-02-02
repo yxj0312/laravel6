@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Conversation;
+use App\Reply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,5 +18,17 @@ class MentionableUsernamesTest extends TestCase
         $conversation = factory(Conversation::class)->create();
 
         $this->assertContains($conversation->user->username, $conversation->mentionableUsernames());
+    }
+
+    /** @test */
+    function it_includes_the_username_of_all_reply_creators()
+    {
+        $conversation = factory(Conversation::class)->create();
+
+        $reply = factory(Reply::class)->make();
+        
+        $conversation->addReply($reply);
+
+        $this->assertContains($reply->user->username, $conversation->mentionableUsernames());
     }
 }
