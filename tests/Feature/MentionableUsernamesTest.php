@@ -31,4 +31,16 @@ class MentionableUsernamesTest extends TestCase
 
         $this->assertContains($reply->user->username, $conversation->mentionableUsernames());
     }
+
+    /** @test */
+    function it_includes_the_username_of_all_mentioned_users_within_replies()
+    {
+        $conversation = factory(Conversation::class)->create();
+
+        $reply = factory(Reply::class)->make(['body' => 'Check with @exampleuser']);
+        
+        $conversation->addReply($reply);
+
+        $this->assertContains('@exampleuser', $conversation->mentionableUsernames());
+    }
 }

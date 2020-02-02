@@ -23,12 +23,24 @@ class Conversation extends Model
 
     public function mentionableUsernames()
     {
+        $conversationOwner = $this->user->username;
+
         $replyUsernames = $this->replies->map(function ($reply) {
             return $reply->user->username;
         })->all();
 
-        return array_merge([
-            $this->user->username,            
-        ], $replyUsernames);
+        // Go: https://regexr.com/
+        // @[^\s]+ means @ begin, and following all characters without space
+        // @\w+ means @ begin, and following with words.if there is period, then will not be included.
+        // (?=\.$) find period, but don't match it.
+        // |\s means otherwise any other kind of space characters will be allowed.
+        // ?: not trying to capture of this 
+        $replyMentionedUsernames = $this->replies->flatmap(function ($reply){
+            preg_match_all('/@[^\s]+(?=(?:\.$)|\s|$)/', $reply->body, $matches);
+
+            return $matches[0];
+        })->all();
+
+        return array_merge([ $conversationOwner], $replyUsernames, $replyMentionedUsernames);
     }
 }
